@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.template {
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+    grid-template-rows: 1fr;
+}
+
+.header {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: auto;
+    height: 6vh;
+    background-color: rgb(89, 99, 97);
+}
+
+.files {
+    height: 94vh;
+    background-color: rgb(200, 206, 205);
+}
+
+.content {
+    height: 94vh;
+    background-color: rgb(224, 224, 224);
+}
