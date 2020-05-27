@@ -32,6 +32,18 @@ body {
 
     background-color: rgb(200, 206, 205);
     border-right: 1px solid black;
+
+    /* overflow-x: scroll; */
+    /* overflow-y: scroll; */
+}
+
+.files .file {
+    list-style: none;
+    padding: 4px;
+    background-color: slategray;
+    color: snow;
+
+    border-bottom: 1px solid rgb(224, 224, 224);
 }
 
 .content {
