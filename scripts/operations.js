@@ -20,3 +20,8 @@ export function updateDump(dump){
     dumps.push(dump);
     localStorage.setItem("dumps", JSON.stringify(dumps));
 }
+
+export function updateDumps(dumps){
+    const data = JSON.stringify(dumps);
+    localStorage.setItem("dumps", data);
+}
