@@ -7,7 +7,8 @@ const controlNewDump = $("#controlNewDump");
 const files = $(".files");
 
 // Data
-let dumps = []
+let dumps = [] // Here is where data should after being buffered from newDumps
+let newDumps = []; // This is a buffer to enter dumps[] so it does not reload the entire thing
 
 // States
 let currentSelected = undefined;
@@ -15,21 +16,16 @@ let currentSelected = undefined;
 // For debugging
 window.system = {
     dumps,
+    newDumps,
     currentSelected,
 };
 
 // On load
-// $(window).on("load", () => {
-//     console.log("Load");
-//     dumps = getDumps();
-//     refreshDumps();
-// });
-
-// window.addEventListener("load", () => {
-//     console.log("Load");
-//     dumps = getDumps();
-//     refreshDumps();
-// });
+$(window).on("load", () => {
+    console.log("Load");
+    newDumps = getDumps();
+    refreshDumps();
+});
 
 // Unload
 $(window).on("beforeunload", () => {
@@ -37,16 +33,16 @@ $(window).on("beforeunload", () => {
 });
 
 // Title change
-titleField.bind("input", () => {
+titleField.on("input", () => {
     console.log(titleField.text());
     this.currentSelected.title = titleField.text();
 });
 
 // New dump
-controlNewDump.bind("click", () => {
+controlNewDump.on("click", () => {
     console.log("New lcik");
     let dump = Dump;
-    dumps.push(dump);
+    newDumps.push(dump);
     setSelected(dump);
     refreshDumps();
 });
@@ -57,19 +53,22 @@ function setSelected(dump){
     }
 
     currentSelected = dump;
+    titleField.text(dump.title);
     $('#content').trumbowyg('html', dump.content);
 }
 
 function refreshDumps(){
-    files.empty();
-    files.append(`
-    <li class="file" id="control">
-        <button type="button" id="controlNewDump">New</button>
-    </li>`);
+    // files.empty();
+    // files.append(`
+    // <li class="file" id="control">
+    //             <button type="button" id="controlNewDump">New</button>
+    //         </li>`);
 
-    dumps.forEach(element => {
+    newDumps.forEach(element => {
         files.append(`<li class="file">${element.title}</li>`);
+        dumps.push(element);
     });
+    newDumps = [];
 }
 
 
