@@ -50,6 +50,10 @@ body {
     background-color: green;
 }
 
+.files .file.selected {
+    background-color: green;
+}
+
 .content {
     /* height: 94vh; */
     /* max-height: 96vh; */
