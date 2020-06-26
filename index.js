@@ -3,7 +3,6 @@ import {Dump} from "./dump.js";
 
 const titleField = $("#title");
 const controlNewDump = $("#controlNewDump");
-
 const files = $(".files");
 
 // Data
@@ -47,6 +46,11 @@ controlNewDump.on("click", () => {
     refreshDumps();
 });
 
+// Dynamically add click handler to not yet generated HTML elements
+files.on("click", ".file", (event) => {
+    console.log(event);
+});
+
 function setSelected(dump){
     if (!currentSelected){
         $("#content").trumbowyg().on("tbwchange", contentChanged);
@@ -58,14 +62,8 @@ function setSelected(dump){
 }
 
 function refreshDumps(){
-    // files.empty();
-    // files.append(`
-    // <li class="file" id="control">
-    //             <button type="button" id="controlNewDump">New</button>
-    //         </li>`);
-
     newDumps.forEach(element => {
-        files.append(`<li class="file">${element.title}</li>`);
+        files.append(`<li class="file" id="${element.id}">${element.title}</li>`);
         dumps.push(element);
     });
     newDumps = [];

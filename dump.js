@@ -1,5 +1,7 @@
+import id from "./scripts/id.js";
+
 export const Dump = {
-    id: "",
+    id: id(),
     title: "Untitled",
     content: "Hello world",
     initialDate: Date.now(),
