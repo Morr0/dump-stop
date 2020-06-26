@@ -1,4 +1,4 @@
-import {uuidv1} from "https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js";
+// import {uuidv1} from "https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js";
 
 export function getDumps(){
     const data = localStorage.getItem("dumps");
