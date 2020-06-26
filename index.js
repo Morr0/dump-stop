@@ -1,11 +1,8 @@
 import {updateDump, updateDumps, getDumps} from "./scripts/operations.js";
 import {Dump} from "./dump.js";
 
-$("#content").trumbowyg().on("tbwchange", contentChanged);
-
 const titleField = $("#title");
 const controlNewDump = $("#controlNewDump");
-const controlSaveDump = $("#controlSaveDump");
 
 const files = $(".files");
 
@@ -22,10 +19,17 @@ window.system = {
 };
 
 // On load
-$(window).on("load", () => {
-    dumps = getDumps();
-    refreshDumps();
-});
+// $(window).on("load", () => {
+//     console.log("Load");
+//     dumps = getDumps();
+//     refreshDumps();
+// });
+
+// window.addEventListener("load", () => {
+//     console.log("Load");
+//     dumps = getDumps();
+//     refreshDumps();
+// });
 
 // Unload
 $(window).on("beforeunload", () => {
@@ -33,12 +37,13 @@ $(window).on("beforeunload", () => {
 });
 
 // Title change
-titleField.on("input", () => {
+titleField.bind("input", () => {
+    console.log(titleField.text());
     this.currentSelected.title = titleField.text();
 });
 
 // New dump
-controlNewDump.on("click", () => {
+controlNewDump.bind("click", () => {
     console.log("New lcik");
     let dump = Dump;
     dumps.push(dump);
@@ -46,17 +51,11 @@ controlNewDump.on("click", () => {
     refreshDumps();
 });
 
-controlSaveDump.on("on", () => {
-    console.log("Save lcik");
-});
-
-
-function contentChanged(){
-    console.log("Called");
-    setSaved(false);
-}  
-
 function setSelected(dump){
+    if (!currentSelected){
+        $("#content").trumbowyg().on("tbwchange", contentChanged);
+    }
+
     currentSelected = dump;
     $('#content').trumbowyg('html', dump.content);
 }
@@ -66,12 +65,17 @@ function refreshDumps(){
     files.append(`
     <li class="file" id="control">
         <button type="button" id="controlNewDump">New</button>
-        <button type="button" id="controlSaveDump" disabled>Save</button>
     </li>`);
+
     dumps.forEach(element => {
         files.append(`<li class="file">${element.title}</li>`);
     });
 }
 
+
+function contentChanged(){
+    currentSelected.content = $('#content').trumbowyg('html');
+    console.log("Content changed");
+}
 
 
